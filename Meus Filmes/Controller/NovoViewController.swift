@@ -8,22 +8,40 @@
 import UIKit
 
 class NovoViewController: UIViewController {
+    
+    var cadastro: Cadastro!
 
+    @IBOutlet weak var tfNome: UITextField!
+    @IBOutlet weak var sldNota: UISlider!
+    @IBOutlet weak var lblNota: UILabel!
+    @IBOutlet weak var swtIndicado: UISwitch!
+    @IBOutlet weak var stpVisualizacoes: UIStepper!
+    @IBOutlet weak var lblVisualizacoes: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.cadastro = (UIApplication.shared.delegate as! AppDelegate).cadastro
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func definirNota(_ sender: Any) {
+        self.lblNota.text = String(Int(sldNota.value))
     }
-    */
-
+    
+    @IBAction func definirVisualizacoes(_ sender: Any) {
+        self.lblVisualizacoes.text = String(Int(stpVisualizacoes.value))
+    }
+   
+    @IBAction func salvar(_ sender: Any) {
+        let nome = self.tfNome.text!
+        let nota = Int(self.sldNota.value)
+        let indicado = self.swtIndicado.isOn
+        let visualizacoes = Int(self.stpVisualizacoes.value)
+        let filme = Filme(nome: nome, nota: nota, indicado: indicado, visualizacoes: visualizacoes)
+        
+        self.cadastro.add(filme: filme)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
 }

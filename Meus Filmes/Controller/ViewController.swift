@@ -9,11 +9,20 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var cadastro: Cadastro!
+    
+    @IBOutlet weak var lblQuantidade: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        self.cadastro = (UIApplication.shared.delegate as! AppDelegate).cadastro
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.lblQuantidade.text = String(self.cadastro.count())
+    }
 
 }
 
